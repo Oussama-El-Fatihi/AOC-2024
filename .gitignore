@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Other files
+template.cpp
+makefile.mak
+/build
+program
+input.txt
