@@ -11,8 +11,8 @@ TARGET = program
 all: $(TARGET)
 
 # Rule to build the executable
-$(TARGET): day2.cpp
-	$(CXX) $(CXXFLAGS) day2.cpp -o $(TARGET)
+$(TARGET): day4.cpp
+	$(CXX) $(CXXFLAGS) day4.cpp -o $(TARGET)
 
 # Run the program
 run: $(TARGET)
