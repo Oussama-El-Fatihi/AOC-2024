@@ -13,7 +13,7 @@ vector <int> get_afters(int number, vector <int> before_list, vector <int> after
 vector <int> get_befores(int number, vector <int> before_list, vector <int> after_list);
 int process_before(int pos, vector <int> afters, vector <int> update);
 int process_after(int pos, vector <int> afters, vector <int> update);
-vector <int> process_before_2(int pos, vector <int> afters, vector <int> update);
+vector <int> process_before_2(int pos , vector <int> afters, vector <int> update);
 vector <int> process_after_2(int pos, vector <int> afters, vector <int> update);
 vector<int> split (const string &s, char delim);
 int processing();
@@ -73,19 +73,27 @@ int processing_2(string updates, vector <int> before_list, vector <int> after_li
     vector <int> temp = update;
     vector <int> befores;
     vector <int> afters;
+    int flag = 0;
     for(int i = 0; i< update.size(); i++){
         int number = update[i];
         befores = get_befores(number,before_list,after_list);
         afters = get_afters(number,before_list,after_list);
-        temp = process_after_2(i, befores, update);
         temp = process_before_2(i, afters, update);
-        if(temp.size() == 0) return 0;
-        while(temp.size() != 0){
+        process_after_2(i, befores, update);
+        if(temp.size() != 0){
             update = temp;
-            temp = process_after_2(i, befores, update);
-            temp = process_before_2(i, afters, update);
+            flag++;
+            i = 0;
         }
     }
+    if(flag == 0){
+        return 0;
+    }
+    cout << "found !" << endl;
+     for(int i = 0; i< update.size();i++){
+        cout << update[i] << " ";
+    }
+    cout << endl;
     int res = update[(int)(update.size()/2)];
     return res; 
 }
@@ -135,22 +143,11 @@ int process_after(int pos, vector <int> befores, vector <int> update){
 }
 
 vector <int> process_before_2(int pos, vector <int> afters, vector <int> update){
-    cout << endl;
-    cout << "before process before 2 : "<< endl;
-    for(int i = 0; i< update.size();i++){
-        cout << update[i] << " ";
-    }
-    cout << endl;
     for(int i = pos - 1; i>=0; i--){
         for(int j = 0; j< afters.size(); j++){
             if(update[i] == afters[j]){
                 update[i] = update[pos];
                 update[pos] = afters[j];
-                cout << "after process before 2 : "<< endl;
-                for(int i = 0; i< update.size();i++){
-                    cout << update[i] << " ";
-                }
-                cout << endl;
                 return update;
             }
         }
@@ -159,22 +156,11 @@ vector <int> process_before_2(int pos, vector <int> afters, vector <int> update)
 }
 
 vector <int>  process_after_2(int pos, vector <int> befores, vector <int> update){
-    cout << endl;
-    cout << "before process after 2 : "<< endl;
-    for(int i = 0; i< update.size();i++){
-        cout << update[i] << " ";
-    }
-    cout << endl;
     for(int i = pos + 1; i<update.size(); i++){
         for(int j = 0; j< befores.size(); j++){
             if(update[i] == befores[j]){
-                 update[i] = update[pos];
+                update[i] = update[pos];
                 update[pos] = befores[j];
-                cout << "after process after 2 : "<< endl;
-                for(int i = 0; i< update.size();i++){
-                    cout << update[i] << " ";
-                }
-                cout << endl;
                 return update;
             }
         }
