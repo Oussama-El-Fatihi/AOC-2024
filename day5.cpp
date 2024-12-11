@@ -54,7 +54,6 @@ int processing_1(string updates, vector <int> before_list, vector <int> after_li
     vector <int> update = split(updates, COMA);
     vector <int> befores;
     vector <int> afters;
-    cout << update[0] << endl;
     for(int i = 0; i< update.size(); i++){
         int number = update[i];
         befores = get_befores(number,before_list,after_list);
@@ -89,11 +88,6 @@ int processing_2(string updates, vector <int> before_list, vector <int> after_li
     if(flag == 0){
         return 0;
     }
-    cout << "found !" << endl;
-     for(int i = 0; i< update.size();i++){
-        cout << update[i] << " ";
-    }
-    cout << endl;
     int res = update[(int)(update.size()/2)];
     return res; 
 }
